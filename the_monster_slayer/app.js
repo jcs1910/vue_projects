@@ -42,9 +42,10 @@ new Vue({
         this.playerHealth = 100;
       }
     },
-    calculateHeal(min, max) {
-      let heal = Math.max(Math.floor(Math.random() * max + 1), min);
-      return heal;
+    giveUp() {
+      if (confirm('Are you really want to give up? Think Twice!!')) {
+        this.gameIsRunning = false;
+      }
     },
     checkWin() {
       if (this.monsterHealth <= 0) {
