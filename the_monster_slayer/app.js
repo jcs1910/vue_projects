@@ -11,13 +11,14 @@ new Vue({
       this.playerHealth = 100;
       this.monsterHealth = 100;
       this.gameIsRunning = true;
+      this.logs = [];
     },
     attack() {
       const damage = this.calculateDamate(3, 10);
       this.monsterHealth -= damage;
       this.logs.unshift({
         isPlayer: true,
-        damage: `Player hits Monster for ${damage}`
+        text: `Player hits Monster for ${damage}`
       })
       if(this.checkWin()) {
         return;
@@ -26,10 +27,15 @@ new Vue({
       this.monsterAttack();
     },
     specialAttack() {
-      this.monsterHealth -= this.calculateDamate(10, 20)
+      const damage = this.calculateDamate(10, 20);
+      this.monsterHealth -= damage;
       if (this.checkWin()) {
         return;
       }
+      this.logs.unshift({
+        isPlayer: false,
+        text: `Player hits Monster hard for ${damage}`
+      })
 
       this.monsterAttack();
     },
@@ -39,7 +45,7 @@ new Vue({
       this.checkWin()
       this.logs.unshift({
         isPlayer: false,
-        damage: `Monster hits Player for ${damage}`
+        text: `Monster hits Player for ${damage}`
       })
     },
     calculateDamate(min, max) {
@@ -48,6 +54,11 @@ new Vue({
     heal() {
       if (this.playerHealth <= 90) {
         this.playerHealth += 10
+        this.logs.unshift({
+          isPlayer: true,
+          text: `Player heals 10`
+        })
+
         this.monsterAttack();
       } else {
         this.playerHealth = 100;
@@ -56,6 +67,7 @@ new Vue({
     giveUp() {
       if (confirm('Are you really want to give up? Think Twice!!')) {
         this.gameIsRunning = false;
+        this.logs = [];
       }
     },
     checkWin() {
