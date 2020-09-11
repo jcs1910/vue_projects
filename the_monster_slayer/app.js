@@ -34,6 +34,18 @@ new Vue({
     calculateDamate(min, max) {
       return Math.max(Math.floor(Math.random() * max + 1), min);
     },
+    heal() {
+      if (this.playerHealth <= 90) {
+        this.playerHealth += 10
+        this.monsterAttack();
+      } else {
+        this.playerHealth = 100;
+      }
+    },
+    calculateHeal(min, max) {
+      let heal = Math.max(Math.floor(Math.random() * max + 1), min);
+      return heal;
+    },
     checkWin() {
       if (this.monsterHealth <= 0) {
         if (confirm('You Won!! Do you want to play again?')) {
