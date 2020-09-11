@@ -17,6 +17,17 @@ new Vue({
         return;
       }
 
+      this.monsterAttack();
+    },
+    specialAttack() {
+      this.monsterHealth -= this.calculateDamate(10, 20)
+      if (this.checkWin()) {
+        return;
+      }
+
+      this.monsterAttack();
+    },
+    monsterAttack() {
       this.playerHealth -= this.calculateDamate(5, 12);
       this.checkWin()
     },
@@ -26,14 +37,18 @@ new Vue({
     checkWin() {
       if (this.monsterHealth <= 0) {
         if (confirm('You Won!! Do you want to play again?')) {
+          this.startGame();
+        } else {
           this.gameIsRunning = false;
-          return true
         }
+        return true;
       } else if (this.playerHealth <= 0) {
         if (confirm('You Lost!! Do you want to play again?')) {
+          this.startGame()
+        } else {
           this.gameIsRunning = false;
-          return true
         }
+        return true;
       }
       return false
     } 
