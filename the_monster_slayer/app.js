@@ -33,7 +33,7 @@ new Vue({
         return;
       }
       this.logs.unshift({
-        isPlayer: false,
+        isPlayer: true,
         text: `Player hits Monster hard for ${damage}`
       })
 
