@@ -21,6 +21,9 @@ export default {
   },
   methods: {
     createNew() {
+      if (this.quote.length <= 0) {
+        return alert('You must type something')
+      }
       this.$emit('quoteAdded', this.quote);
       this.quote = '';
     }
